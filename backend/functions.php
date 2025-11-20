@@ -11,7 +11,7 @@ function Story(){
 
     $story = $result -> fetch_all();
 
-    return $story
+    return $story;
 }
 
 function Quiz(){
