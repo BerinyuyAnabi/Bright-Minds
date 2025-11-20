@@ -472,7 +472,7 @@
         <div class="form-wrapper" id="signupForm">
             <h2>Join the Adventure! 🎒</h2>
             
-            <form id="signup" action="/backend/database.php">
+            <form id="signup" method="POST" action="backend/database.php">
                 <div class="form-field">
                     <label>Choose Your Explorer Name:</label>
                     <input type="text" id="signupUsername" required>
@@ -531,7 +531,7 @@
         <div class="form-wrapper" id="loginForm">
             <h2>Welcome Back, Explorer! 🎯</h2>
             
-            <form id="login" action ="/backend/database.php">
+            <form id="login" method="POST" action ="backend/database.php">
                 <div class="form-field">
                     <label>Your Explorer Name or Email:</label>
                     <input type="text" id="loginUsername" required>
@@ -978,4 +978,5 @@
 </body>
 
 </html>
+
 
