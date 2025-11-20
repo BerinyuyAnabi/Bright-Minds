@@ -472,24 +472,24 @@
         <div class="form-wrapper" id="signupForm">
             <h2>Join the Adventure! 🎒</h2>
             
-            <form id="signup" method="POST" action="backend/database.php">
+            <form id="signup" method="POST" action="backend/signup.php">
                 <div class="form-field">
                     <label>Choose Your Explorer Name:</label>
-                    <input type="text" id="signupUsername" required>
+                    <input type="text" id="signupUsername" name="username" required>
                     <span class="checkmark">✅</span>
                     <div class="error" id="usernameError"></div>
                 </div>
 
                 <div class="form-field">
                     <label>Your Email Address:</label>
-                    <input type="email" id="signupEmail" required>
+                    <input type="email" id="signupEmail" name="email" required>
                     <span class="checkmark">✅</span>
                     <div class="error" id="emailError"></div>
                 </div>
 
                 <div class="form-field">
                     <label>Create a Secret Password:</label>
-                    <input type="password" id="signupPassword" required>
+                    <input type="password" id="signupPassword" name="password" required>
                     <span class="checkmark">✅</span>
                     <div class="strength-bar">
                         <div class="strength-fill" id="strengthFill"></div>
@@ -507,6 +507,7 @@
 
                 <div class="form-field">
                     <label>Choose Your Adventure Buddy:</label>
+                    <input type="hidden" id="avatarInput" name="avatar" value="">
                     <div class="avatars">
                         <div class="avatar" data-avatar="owl" tabindex="0">🦉</div>
                         <div class="avatar" data-avatar="fox" tabindex="0">🦊</div>
@@ -531,17 +532,17 @@
         <div class="form-wrapper" id="loginForm">
             <h2>Welcome Back, Explorer! 🎯</h2>
             
-            <form id="login" method="POST" action ="backend/database.php">
+            <form id="login" method="POST" action="backend/login.php">
                 <div class="form-field">
                     <label>Your Explorer Name or Email:</label>
-                    <input type="text" id="loginUsername" required>
+                    <input type="text" id="loginUsername" name="username" required>
                     <span class="checkmark">✅</span>
                     <div class="error" id="loginUsernameError"></div>
                 </div>
 
                 <div class="form-field">
                     <label>Your Secret Password:</label>
-                    <input type="password" id="loginPassword" required>
+                    <input type="password" id="loginPassword" name="password" required>
                     <span class="checkmark">✅</span>
                     <div class="error" id="loginPasswordError"></div>
                 </div>
@@ -658,8 +659,9 @@
 
                 // Form submission
                 document.getElementById('signup').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.submit();
+                    if (!this.submit()) {
+                        e.preventDefault();
+                    }
                 });
             }
 
@@ -766,6 +768,7 @@
                 document.querySelectorAll('#signupForm .avatar').forEach(a => a.classList.remove('selected'));
                 element.classList.add('selected');
                 this.selectedAvatar = element.dataset.avatar;
+                document.getElementById('avatarInput').value = this.selectedAvatar;
                 this.validation.avatar = true;
                 this.checkValid();
             }
@@ -804,14 +807,8 @@
                 document.getElementById('signupLoading').classList.add('show');
                 this.submitBtn.disabled = true;
 
-                setTimeout(() => {
-                    const avatarName = this.selectedAvatar === 'owl' ? '🦉 Wise Owl' : 
-                                      this.selectedAvatar === 'fox' ? '🦊 Clever Fox' : '🐰 Happy Rabbit';
-                    
-                    alert(`🎉 Welcome to Bright Minds, ${this.username.value}!\n\nYour adventure buddy: ${avatarName}\n\nLet's start learning! 🚀`);
-                    
-                    this.reset();
-                }, 2000);
+                // Form will now submit naturally to backend/signup.php
+                return true;
             }
 
             reset() {
@@ -874,8 +871,9 @@
 
                 // Form submission
                 document.getElementById('login').addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    this.submit();
+                    if (!this.submit()) {
+                        e.preventDefault();
+                    }
                 });
             }
 
@@ -945,10 +943,8 @@
                 document.getElementById('loginLoading').classList.add('show');
                 this.submitBtn.disabled = true;
 
-                setTimeout(() => {
-                    alert(`👋 Welcome back, ${this.username.value}!\n\nLet's continue your learning adventure! 🎈`);
-                    this.reset();
-                }, 2000);
+                // Form will now submit naturally to backend/login.php
+                return true;
             }
 
             reset() {

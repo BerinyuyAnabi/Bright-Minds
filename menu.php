@@ -1,6 +1,24 @@
 <?php
+session_start();
 
-echo "Starting menu page...\n";
+// Check if user is logged in
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login if not logged in
+    header("Location: BrightMindsLogin.php");
+    exit();
+}
+
+// Get user info from session
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Explorer';
+$avatar = isset($_SESSION['avatar']) ? $_SESSION['avatar'] : 'owl';
+
+// Map avatar to emoji
+$avatarEmoji = [
+    'owl' => '🦉',
+    'fox' => '🦊',
+    'rabbit' => '🐰'
+];
+$avatarDisplay = isset($avatarEmoji[$avatar]) ? $avatarEmoji[$avatar] : '🦉';
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +32,7 @@ echo "Starting menu page...\n";
 <body>
 
 <div class="menu">
-    <h1 id="welcomeMessage">Welcome, Explorer!</h1>
+    <h1 id="welcomeMessage">Welcome, <?php echo htmlspecialchars($username); ?>! <?php echo $avatarDisplay; ?></h1>
     <div class="menu_list">
         <button class="btn-game" onclick="window.location.href='backend/processor.php?key=games'">🎮 Play a Game</button>
         <button class="btn-quiz" onclick="window.location.href='backend/processor.php?key=quiz'">📝 Take a Quiz</button>
@@ -25,22 +43,9 @@ echo "Starting menu page...\n";
 </div>
 
 <script>
-    // Check if user is logged in
-    window.onload = function() {
-        const userData = sessionStorage.getItem('brightMindsUser');
-        if (userData) {
-            const user = JSON.parse(userData);
-            document.getElementById('welcomeMessage').textContent = `Welcome, ${user.username}! ${user.avatarName}`;
-        } else {
-            // Redirect to login if not logged in
-            window.location.href = 'index.html';
-        }
-    };
-
     function logout() {
         if (confirm('Are you sure you want to logout?')) {
-            sessionStorage.removeItem('brightMindsUser');
-            window.location.href = 'index.html';
+            window.location.href = 'backend/logout.php';
         }
     }
 </script>
