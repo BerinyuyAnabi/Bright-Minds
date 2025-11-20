@@ -472,7 +472,7 @@
         <div class="form-wrapper" id="signupForm">
             <h2>Join the Adventure! 🎒</h2>
             
-            <form id="signup">
+            <form id="signup" action="database.php">
                 <div class="form-field">
                     <label>Choose Your Explorer Name:</label>
                     <input type="text" id="signupUsername" required>
@@ -531,7 +531,7 @@
         <div class="form-wrapper" id="loginForm">
             <h2>Welcome Back, Explorer! 🎯</h2>
             
-            <form id="login">
+            <form id="login" action = "database.php">
                 <div class="form-field">
                     <label>Your Explorer Name or Email:</label>
                     <input type="text" id="loginUsername" required>
@@ -976,4 +976,5 @@
         const app = new BrightMindsApp();
     </script>
 </body>
+
 </html>
