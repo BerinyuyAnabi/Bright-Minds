@@ -2,60 +2,79 @@
 session_start();
 include 'database.php';
 
+// TEST 1: Check database connection
+if (!$conn) {
+    die("DATABASE ERROR: Connection failed - " . mysqli_connect_error());
+}
+echo "✓ Database connected<br>";
+
 // Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    // Get input values
     $username_or_email = isset($_POST['username']) ? trim($_POST['username']) : '';
     $password = isset($_POST['password']) ? $_POST['password'] : '';
-
-    // Basic validation
+    
+    // TEST 2: Check form data
+    echo "Form submitted<br>";
+    echo "Username/Email entered: " . htmlspecialchars($username_or_email) . "<br>";
+    echo "Password entered: " . (empty($password) ? "EMPTY" : "YES") . "<br>";
+    
     if (empty($username_or_email) || empty($password)) {
-        $_SESSION['login_error'] = "Please enter both username/email and password";
-        header("Location: ../BrightMindsLogin.php?error=empty");
-        exit();
+        die("ERROR: Empty fields");
     }
-
-    // Check if user exists (by username or email)
+    
+    // TEST 3: Check if query works
     $stmt = $conn->prepare("SELECT id, username, email, password, avatar FROM users WHERE username = ? OR email = ?");
+    if (!$stmt) {
+        die("PREPARE ERROR: " . $conn->error);
+    }
+    
     $stmt->bind_param("ss", $username_or_email, $username_or_email);
-    $stmt->execute();
+    
+    if (!$stmt->execute()) {
+        die("EXECUTE ERROR: " . $stmt->error);
+    }
+    
     $result = $stmt->get_result();
-
+    echo "✓ Query executed. Rows found: " . $result->num_rows . "<br>";
+    
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
-
-        // Verify password
+        echo "✓ User found: " . htmlspecialchars($user['username']) . "<br>";
+        
+        // TEST 4: Check password verification
+        echo "Password hash from DB: " . substr($user['password'], 0, 20) . "...<br>";
+        
         if (password_verify($password, $user['password'])) {
-            // Password is correct, set session variables
+            echo "✓ Password verified!<br>";
+            
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['avatar'] = $user['avatar'];
-
-            // Update last login time
+            
+            echo "✓ Session set<br>";
+            echo "Session data: user_id=" . $_SESSION['user_id'] . "<br>";
+            
+            // Update last login
             $update_stmt = $conn->prepare("UPDATE users SET last_login = NOW() WHERE id = ?");
             $update_stmt->bind_param("i", $user['id']);
             $update_stmt->execute();
-
-            // Redirect to menu
-            header("Location: ../menu.php");
-            exit();
+            
+            echo "✓ Last login updated<br>";
+            echo "<strong>Redirecting to menu.php...</strong><br>";
+            
+            // Comment out redirect temporarily to see results
+            // header("Location: ../menu.php");
+            // exit();
+            
         } else {
-            // Invalid password
-            $_SESSION['login_error'] = "Invalid username/email or password";
-            header("Location: ../BrightMindsLogin.php?error=invalid");
-            exit();
+            echo "❌ Password verification FAILED<br>";
+            echo "This means the password doesn't match the hash in the database<br>";
         }
     } else {
-        // User not found
-        $_SESSION['login_error'] = "Invalid username/email or password";
-        header("Location: ../BrightMindsLogin.php?error=invalid");
-        exit();
+        echo "❌ User NOT found in database<br>";
     }
-
+    
 } else {
-    // If not POST request, redirect back
-    header("Location: ../BrightMindsLogin.php");
-    exit();
+    echo "Not a POST request";
 }
 ?>
