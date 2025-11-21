@@ -89,8 +89,9 @@ class SignupForm {
 
         // Form submission
         document.getElementById('signup').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.submit();
+            if (!this.submit()) {
+                e.preventDefault();
+            }
         });
     }
 
@@ -197,6 +198,7 @@ class SignupForm {
         document.querySelectorAll('#signupForm .avatar').forEach(a => a.classList.remove('selected'));
         element.classList.add('selected');
         this.selectedAvatar = element.dataset.avatar;
+        document.getElementById('avatarInput').value = this.selectedAvatar;
         this.validation.avatar = true;
         this.checkValid();
     }
@@ -235,22 +237,8 @@ class SignupForm {
         document.getElementById('signupLoading').classList.add('show');
         this.submitBtn.disabled = true;
 
-        setTimeout(() => {
-            const avatarName = this.selectedAvatar === 'owl' ? '🦉 Wise Owl' : 
-                              this.selectedAvatar === 'fox' ? '🦊 Clever Fox' : '🐰 Happy Rabbit';
-            
-            // Store user data
-            const userData = {
-                username: this.username.value,
-                email: this.email.value,
-                avatar: this.selectedAvatar,
-                avatarName: avatarName
-            };
-            sessionStorage.setItem('brightMindsUser', JSON.stringify(userData));
-            
-            // Redirect to menu page
-            window.location.href = 'menu.html';
-        }, 2000);
+        // Form will now submit naturally to backend/signup.php
+        return true;
     }
 
     reset() {
@@ -313,8 +301,9 @@ class LoginForm {
 
         // Form submission
         document.getElementById('login').addEventListener('submit', (e) => {
-            e.preventDefault();
-            this.submit();
+            if (!this.submit()) {
+                e.preventDefault();
+            }
         });
     }
 
@@ -384,19 +373,8 @@ class LoginForm {
         document.getElementById('loginLoading').classList.add('show');
         this.submitBtn.disabled = true;
 
-        setTimeout(() => {
-            // Store user data (simulated login)
-            const userData = {
-                username: this.username.value,
-                email: this.username.value + '@brightminds.com',
-                avatar: 'owl',
-                avatarName: '🦉 Wise Owl'
-            };
-            sessionStorage.setItem('brightMindsUser', JSON.stringify(userData));
-            
-            // Redirect to menu page
-            window.location.href = 'menu.html';
-        }, 2000);
+        // Form will now submit naturally to backend/login.php
+        return true;
     }
 
     reset() {
