@@ -10,7 +10,7 @@
   <header>
     <h1>🧠 BrightMinds Quiz Zone 🧩</h1>
     <p>Let's see how smart you are today!</p>
-    <button class="back-btn" onclick="window.location.href='menu.html'">← Back to Menu</button>
+    <button class="back-btn" onclick="window.location.href='menu.php'">← Back to Menu</button>
   </header>
 
   <main>

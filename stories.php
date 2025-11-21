@@ -11,7 +11,7 @@
   <header>
     <h1>📚 BrightMinds Story Time 🌟</h1>
     <p>Enjoy magical stories full of fun and imagination!</p>
-    <button class="back-btn" onclick="window.location.href='menu.html'">← Back to Menu</button>
+    <button class="back-btn" onclick="window.location.href='menu.php'">← Back to Menu</button>
   </header>
 
   <main>

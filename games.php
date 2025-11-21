@@ -10,7 +10,7 @@
   <header>
     <h1>🎮 BrightMinds Game Zone 🎲</h1>
     <p>Click "Start Game" for a random fun challenge!</p>
-    <button class="back-btn" onclick="window.location.href='menu.html'">← Back to Menu</button>
+    <button class="back-btn" onclick="window.location.href='menu.php'">← Back to Menu</button>
   </header>
 
   <main>
