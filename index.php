@@ -32,8 +32,8 @@
             </div>
 
             <div class="btn-group">
-                <button class="btn btn-signup" id="showSignup">I'm New Here! 🎉</button>
-                <button class="btn btn-login" id="showLogin">I've Been Here Before! 👋</button>
+                <button class="btn btn-signup" id="showSignup" type="submit" > I'm New Here! 🎉</button>
+                <button class="btn btn-login" id="showLogin" type="submit" >I've Been Here Before! 👋</button>
             </div>
         </section>
 
@@ -138,4 +138,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
