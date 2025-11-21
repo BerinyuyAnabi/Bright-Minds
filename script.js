@@ -300,29 +300,11 @@ class LoginForm {
         });
 
         // Form submission
-          submit() {
-        if (this.submitBtn.disabled) return;
-
-        document.getElementById('signupLoading').classList.add('show');
-        this.submitBtn.disabled = true;
-
-        setTimeout(() => {
-            const avatarName = this.selectedAvatar === 'owl' ? '🦉 Wise Owl' : 
-                              this.selectedAvatar === 'fox' ? '🦊 Clever Fox' : '🐰 Happy Rabbit';
-            
-            // Store user data
-            const userData = {
-                username: this.username.value,
-                email: this.email.value,
-                avatar: this.selectedAvatar,
-                avatarName: avatarName
-            };
-            sessionStorage.setItem('brightMindsUser', JSON.stringify(userData));
-            
-            // Redirect to menu page
-            window.location.href = 'menu.php';
-        }, 2000);
-    }
+        document.getElementById('login').addEventListener('submit', (e) => {
+            if (!this.submit()) {
+                e.preventDefault();
+            }
+        });
     }
 
     validateUsername() {
