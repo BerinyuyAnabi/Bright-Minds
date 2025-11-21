@@ -398,6 +398,7 @@ class LoginForm {
     }
 }
 
-// Start the app
-
-const app = new BrightMindsApp();
+// Start the app when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    const app = new BrightMindsApp();
+});
