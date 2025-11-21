@@ -802,7 +802,7 @@
             }
 
             submit() {
-                if (this.submitBtn.disabled) return;
+                if (this.submitBtn.disabled) return false;
 
                 document.getElementById('signupLoading').classList.add('show');
                 this.submitBtn.disabled = true;
@@ -938,7 +938,7 @@
             }
 
             submit() {
-                if (this.submitBtn.disabled) return;
+                if (this.submitBtn.disabled) return false;
 
                 document.getElementById('loginLoading').classList.add('show');
                 this.submitBtn.disabled = true;
