@@ -1,11 +1,11 @@
 <?php
 
 // Connect to the cloud database
-$servername = "sql12.freesqldatabase.com";
-$username = "sql12808774";
-$dbpassword = "GIzq5JwhtQ";
-$dbname = "sql12808774";
-$port = 3306;
+$servername = "169.239.251.102";
+$username = "logan.anabi";
+$dbpassword = "Minushbest#0";
+$dbname = "webtech_2025A_logan_anabi";
+$port = 321;
 
 // Creating a database connection
 $conn = new mysqli($servername, $username, $dbpassword, $dbname, $port);
