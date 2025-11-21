@@ -15,7 +15,7 @@
             <h1>Parent Dashboard</h1>
             <div class="profile">
                 <span class="username" id="parentName">Parent Name</span>
-                <button class="back-btn" onclick="window.location.href='menu.html'" style="margin-left: 20px;">← Back to Menu</button>
+                <button class="back-btn" onclick="window.location.href='menu.php'" style="margin-left: 20px;">← Back to Menu</button>
             </div>
         </div>
 
