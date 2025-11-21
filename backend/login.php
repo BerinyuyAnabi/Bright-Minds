@@ -1,4 +1,11 @@
 <?php
+
+<?php
+// Add these lines at the VERY TOP
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+
 session_start();
 include 'database.php';
 
@@ -78,3 +85,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Not a POST request";
 }
 ?>
+
