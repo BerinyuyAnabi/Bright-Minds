@@ -9,10 +9,12 @@ $dbname = "webtech_2025A_logan_anabi";
 
 // Creating a database connection
 $conn = new mysqli($servername, $username, $dbpassword, $dbname);
+
 if($conn->connect_error){
     die("Connection failed: " . $conn->connect_error);
 }
 
+echo "DB successfully connected";
 // Set charset to utf8mb4 for proper character support
 $conn->set_charset("utf8mb4");
 
